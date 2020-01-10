@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<id>project</id>
+	<filters>
+<!-- 		<filter service="pasURIAuthenticationFilter" /> -->
+<!-- 		<filter service="pasRefererAuthenticationFilter" /> -->
+	</filters>
+	<imports>
+		<import type="module" path="default-module.xml" />
+	</imports>
+	<requests>
+		<request type="do" service="com.flying.project.request.DoRequestService"/>
+	</requests>
+	<configs>
+		<config name="uploadURL">/uploads/</config>
+		
+        <config name="target_folder">C:\flying\framework\WebRoot\uploads</config>
+		
+		<config name="EFPS.tag_code_base">https://172.20.16.198:8888/svn/001-DevLib/001-Web/003-Server/070-EFPS/0001-Epaylinks/V1.0/030-Coding/050-Tags</config>
+        <config name="EFPS.compile_folder">C:\Temp</config>
+        <config name="EFPS.compile_disk">C:</config>
+		
+		<config name="FLYING.tag_code_base">https://whf/svn/flyingwords/tags</config>
+        <config name="FLYING.compile_folder">C:\Temp</config>
+        <config name="FLYING.compile_disk">C:</config>
+		
+		<config name="metadata-files">
+            /config/descriptors/view.json
+		</config>
+	</configs>
+</module>

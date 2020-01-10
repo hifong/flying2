@@ -1,0 +1,340 @@
+{
+    "pm_project_compile_log": {
+        "title": "项目版本编译记录",
+        "primary-key": "log_id",
+        "table-name": "pm_project_compile_log",
+        "fields": [
+            {
+                "generator": "auto_increment",
+                "title": "编译日志ID",
+                "required": true,
+                "name": "log_id",
+                "data_type": "int",
+                "type": "hidden"
+            },
+            {
+                "title": "项目ID",
+                "required": false,
+                "name": "project_id",
+                "data_type": "int",
+                "type": "hidden"
+            },
+            {
+                "name": "project_name",
+                "title": "项目名称",
+                "type": "serviceResult",
+                "serviceId": "Project:findById",
+                "isField": "false",
+                "valueField": "name",
+                "params": {
+                    "project_id": "$project_id"
+                }
+            },
+            {
+                "title": "版本ID",
+                "required": false,
+                "name": "version_id",
+                "data_type": "int",
+                "type": "hidden"
+            },
+            {
+                "name": "version_name",
+                "title": "版本名称",
+                "type": "serviceResult",
+                "serviceId": "Version:findById",
+                "isField": "false",
+                "isColumn": "true",
+                "valueField": "name",
+                "params": {
+                    "version_id": "$version_id"
+                }
+            },
+            {
+                "title": "编译时间",
+                "required": false,
+                "name": "compile_date",
+                "data_type": "Date"
+            },
+            {
+                "title": "编译次数",
+                "required": false,
+                "name": "compile_num",
+                "data_type": "int"
+            },
+            {
+                "title": "程序包MD5",
+                "required": false,
+                "maxlength": 65535,
+                "name": "md5",
+                "data_type": "String"
+            },
+            {
+                "title": "编译状态",
+                "required": false,
+                "name": "state",
+                "data_type": "int"
+            },
+            {
+                "title": "编译人",
+                "required": false,
+                "name": "creator",
+                "data_type": "String"
+            },
+            {
+                "title": "编译信息",
+                "required": false,
+                "maxlength": 65535,
+                "name": "info",
+                "data_type": "String"
+            },
+            {
+                "title": "发布文件URL",
+                "required": false,
+                "maxlength": 200,
+                "name": "url",
+                "data_type": "String"
+            },
+            {
+                "title": "代码库",
+                "required": false,
+                "maxlength": 150,
+                "name": "code_base",
+                "data_type": "String"
+            }
+        ]
+    },
+    "pm_project_member": {
+        "title": "项目成员",
+        "primary-key": "",
+        "table-name": "pm_project_member",
+        "fields": [
+            {
+                "title": "项目ID",
+                "required": false,
+                "name": "project_id",
+                "data_type": "int"
+            },
+            {
+                "title": "成员ID",
+                "required": false,
+                "name": "member_id",
+                "data_type": "int"
+            },
+            {
+                "title": "角色",
+                "required": false,
+                "maxlength": 50,
+                "name": "role",
+                "options": [
+                	{"value":"dev",   "text":"开发工程师"},
+                	{"value":"test",  "text":"测试工程师"},
+                	{"value":"owner",  "text":"项目所有者"}
+                ],
+                "data_type": "String",
+                "type": "radio"
+            },
+            {
+                "name": "member",
+                "title": "项目成员",
+                "type": "serviceResult",
+                "serviceId": "UserService:findById",
+                "isField": "false",
+                "valueField": "username,real_name,mail,org_name",
+                "mergeProperty":"true",
+                "params": {
+                    "user_id": "$member_id"
+                }
+            },
+            {
+                "title": "创建时间",
+                "required": false,
+                "name": "create_date",
+                "data_type": "Date"
+            }
+        ]
+    },
+    "pm_version": {
+        "title": "版本",
+        "primary-key": "version_id",
+        "table-name": "pm_version",
+        "fields": [
+            {
+                "generator": "auto_increment",
+                "title": "版本ID",
+                "required": true,
+                "name": "version_id",
+                "data_type": "int",
+                "type": "hidden"
+            },
+            {
+                "title": "项目",
+                "required": true,
+                "name": "project_id",
+                "data_type": "int",
+                "type": "combotree",
+                "isColumn": "false",
+                "valueField": "project_id",
+                "textField": "name",
+                "url": "/pas/Project/findProjectTree.do?$value=rows"
+            },
+            {
+                "name": "project_name",
+                "title": "项目名称",
+                "type": "serviceResult",
+                "serviceId": "Project:findById",
+                "isField": "false",
+                "valueField": "name",
+                "params": {
+                    "project_id": "$project_id"
+                }
+            },
+            {
+                "title": "名称",
+                "required": false,
+                "maxlength": 50,
+                "name": "name",
+                "data_type": "String"
+            },
+            {
+                "title": "状态",
+                "required": false,
+                "name": "state",
+                "data_type": "int"
+            },
+            {
+                "title": "创建时间",
+                "required": false,
+                "name": "create_date",
+                "data_type": "Date",
+                "isField": "false",
+                "type": "datebox"
+            },
+            {
+                "title": "需求时间",
+                "required": false,
+                "name": "requirement_date",
+                "data_type": "Date",
+                "type": "datebox"
+            },
+            {
+                "title": "发布时间",
+                "required": false,
+                "name": "deploy_date",
+                "data_type": "Date",
+                "type": "datebox"
+            },
+            {
+                "title": "计划上线时间",
+                "required": false,
+                "name": "plan_online_date",
+                "data_type": "Date",
+                "type": "datebox"
+            },
+            {
+                "title": "实际上线时间",
+                "required": false,
+                "name": "acture_online_date",
+                "data_type": "Date",
+                "type": "datebox"
+            },
+            {
+                "title": "需求描述",
+                "required": false,
+                "maxlength": 65535,
+                "name": "requirement",
+                "data_type": "String",
+                "type": "textarea"
+            },
+            {
+                "title": "代码库",
+                "required": false,
+                "maxlength": 150,
+                "name": "code_base",
+                "data_type": "String"
+            }
+        ]
+    },
+    "pm_project": {
+        "title": "项目",
+        "primary-key": "project_id",
+        "table-name": "pm_project",
+        "fields": [
+            {
+                "generator": "auto_increment",
+                "title": "项目ID",
+                "required": true,
+                "name": "project_id",
+                "data_type": "int",
+                "type": "hidden"
+            },
+            {
+                "title": "上级项目",
+                "required": false,
+                "name": "parent_id",
+                "data_type": "int",
+                "type": "combotree",
+                "isColumn": "false",
+                "valueField": "project_id",
+                "textField": "name",
+                "url": "/pas/Project/findProjectTree.do?$value=rows"
+            },
+            {
+                "title": "名称",
+                "required": true,
+                "maxlength": 50,
+                "name": "name",
+                "data_type": "String"
+            },
+            {
+                "title": "代码",
+                "required": true,
+                "maxlength": 10,
+                "name": "code",
+                "data_type": "String"
+            },
+            {
+                "title": "编译器war/jar",
+                "required": true,
+                "maxlength": 10,
+                "name": "compiler",
+                "data_type": "String"
+            },
+            {
+                "title": "说明",
+                "required": false,
+                "maxlength": 200,
+                "name": "remark",
+                "data_type": "String",
+                "type": "textarea"
+            },
+            {
+                "title": "责任人",
+                "required": false,
+                "maxlength": 50,
+                "name": "owner",
+                "data_type": "String"
+            },
+            {
+                "title": "创建时间",
+                "required": false,
+                "name": "create_date",
+                "data_type": "Date",
+                "type": "datebox"
+            },
+            {
+                "title": "最新版本",
+                "required": false,
+                "maxlength": 50,
+                "name": "last_version",
+                "data_type": "String"
+            },
+            {
+                "title": "代码库",
+                "required": false,
+                "maxlength": 150,
+                "name": "code_base",
+                "data_type": "String"
+            }
+        ]
+    }
+}

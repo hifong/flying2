@@ -1,0 +1,251 @@
+{
+    "v.pm_project": {
+        "fields": [
+			{
+				"name": "project_id",
+				"title": "ID",
+				"type": "hidden"
+			},
+			{
+				"name": "parent_id",
+				"title": "上级ID",
+				"type": "combotree",
+				"isColumn": "false",
+				"valueField": "project_id",
+				"textField": "name",
+				"url": "/project/ProjectService/findChildren.do?$value=rows"
+			},
+            {
+                "name": "name",
+                "condition": "true",
+                "title": "名称"
+            },
+            {
+                "name": "code",
+                "condition": "true",
+                "title": "代码"
+            },
+			{
+				"name": "compiler",
+				"title": "编译器",
+				"type": "combobox",
+				"isColumn": "true",
+				"valueField": "value",
+				"textField": "text",
+				"url": "/project/enums/findEnums.do?$value=rows&class=com.flying.project.model.Project$Compiler"
+			},
+            "remark",
+            "owner",
+            "last_version",
+            "code_base"
+        ],
+        "entity": "pm_project",
+        "buttons": [
+            {
+                "title": "新建",
+                "iconCls": "icon-add",
+                "function": "createOne(\"dlg\",\"/project/ProjectService/create.do\")"
+            },
+            {
+                "title": "修改",
+                "iconCls": "icon-edit",
+                "function": "updateOne(\"dlg\",\"/project/ProjectService/update.do\")"
+            },
+            {
+                "title": "删除",
+                "iconCls": "icon-remove",
+                "function": "removeOne(\"/project/ProjectService/remove.do\", \"project_id\")"
+            },
+            {
+                "title": "编译",
+                "iconCls": "icon-ok",
+                "function": "handleOne(\"/project/ProjectService/compile.do\", \"project_id\")"
+            }
+        ]
+    },
+    "v.pm_version": {
+        "fields": [
+			{
+				"name": "version_id",
+				"title": "ID",
+				"type": "hidden"
+			},
+			{
+				"name": "project_id",
+				"title": "项目",
+                "condition": "true",
+				"type": "combotree",
+				"isColumn": "true",
+				"valueField": "project_id",
+				"textField": "name",
+				"url": "/project/ProjectService/findChildren.do?$value=rows"
+			},
+            {
+                "name": "name",
+                "condition": "true",
+                "title": "名称"
+            },
+            {
+                "name": "state",
+				"isField": "false",
+                "title": "状态"
+            },
+            {
+                "name": "creator",
+				"isField": "false",
+                "title": "创建人"
+            },
+            {
+                "name": "create_date",
+				"isField": "false",
+                "title": "创建时间"
+            },
+            {
+                "name": "requirement_date",
+				"type": "datebox",
+                "title": "需求时间"
+            },
+            {
+                "name": "deploy_date",
+				"type": "datebox",
+                "title": "发布时间"
+            },
+            {
+                "name": "plan_online_date",
+				"type": "datebox",
+                "title": "计划上线"
+            },
+            {
+                "name": "acture_online_date",
+				"type": "datebox",
+                "title": "实际上线"
+            },
+            "requirement",
+            "code_base"
+        ],
+        "entity": "pm_version",
+        "buttons": [
+            {
+                "title": "新建",
+                "iconCls": "icon-add",
+                "function": "createOne(\"dlg\",\"/project/VersionService/create.do\")"
+            },
+            {
+                "title": "修改",
+                "iconCls": "icon-edit",
+                "function": "updateOne(\"dlg\",\"/project/VersionService/update.do\")"
+            },
+            {
+                "title": "编译",
+                "iconCls": "icon-ok",
+                "function": "handleOne(\"/project/VersionService/compile.do\", \"version_id\")"
+            },
+            {
+                "title": "测试",
+                "iconCls": "icon-ok",
+                "function": "handleOne(\"/project/VersionService/test.do\", \"version_id\")"
+            },
+            {
+                "title": "发布",
+                "iconCls": "icon-ok",
+                "function": "handleOne(\"/project/VersionService/publish.do\", \"version_id\")"
+            },
+            {
+                "title": "部署",
+                "iconCls": "icon-ok",
+                "function": "handleOne(\"/project/VersionService/deploy.do\", \"version_id\")"
+            }
+        ]
+    },
+    "v.pm_project_compile_log": {
+        "fields": [
+			{
+				"name": "log_id",
+				"title": "ID",
+				"type": "hidden"
+			},
+			{
+				"name": "project_id",
+				"title": "项目",
+                "condition": "true",
+				"type": "combotree",
+				"isColumn": "true",
+				"valueField": "project_id",
+				"textField": "name",
+				"url": "/project/ProjectService/findChildren.do?$value=rows"
+			},
+			{
+				"name": "version_id",
+				"title": "版本",
+                "condition": "true"
+			},
+            "compile_num",
+            "md5",
+			{
+				"name": "state",
+				"title": "状态"
+			},
+            "compile_date",
+            "creator",
+            "url",
+            "info",
+            "code_base"
+        ],
+        "entity": "pm_project_compile_log"
+    },
+    "v.pm_version4createform": {
+        "fields": [
+            "version_id",
+            "project_id",
+            "name",
+            "requirement_date",
+            "plan_online_date",
+            "requirement",
+            "code_base"
+        ],
+        "entity": "pm_version"
+    },
+    "v.pm_project_member": {
+        "fields": [
+            "project_id",
+            "member_id",
+            "role",
+            "create_date"
+        ],
+        "entity": "pm_project_member",
+        "buttons": [
+            {
+                "title": "新建",
+                "iconCls": "icon-add",
+                "function": "createOne(\"dlg\",\"/pas/ProjectMember/create.do\")"
+            },
+            {
+                "title": "修改",
+                "iconCls": "icon-edit",
+                "function": "updateOne(\"dlg\",\"/pas/ProjectMember/update.do\")"
+            },
+            {
+                "title": "删除",
+                "iconCls": "icon-remove",
+                "function": "removeOne(\"/pas/ProjectMember/remove.do\", \"user_id\")"
+            }
+        ]
+    },
+    "v.pm_project_member_user": {
+        "fields": [
+            "project_id",
+            "member_id",
+            "role",
+            "create_date",
+            {
+                "name": "member",
+                "type": "serviceResult",
+                "serviceId": "UserService:findById",
+                "params": {
+                    "user_id": "$member_id"
+                }
+            }
+        ],
+        "entity": "pm_project_member"
+     }
+}

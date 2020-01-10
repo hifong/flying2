@@ -1,0 +1,196 @@
+{
+    "pm_project_tree": {
+        "fields": [
+            "project_id",
+            "parent_id",
+            "name",
+            "code",
+            "compiler",
+            "remark",
+            "owner",
+            "create_date",
+            "last_version",
+            "code_base",
+            {
+                "title": "项目ID",
+                "name": "project_id",
+                "alias": "id",
+                "type": "hidden"
+            },
+            {
+                "title": "项目名稱",
+                "name": "name",
+                "alias": "text",
+                "type": "hidden"
+            },
+            {
+                "name": "children",
+                "type": "serviceResult",
+                "serviceId": "Project:findProjectTree",
+                "params": {
+                    "parent_id": "$project_id"
+                }
+            }
+        ],
+        "entity": "pm_project"
+    },
+    "v.pm_version": {
+        "fields": [
+            "version_id",
+            "project_id",
+            "project_name",
+            "name",
+            "state",
+            "create_date",
+            "requirement_date",
+            "deploy_date",
+            "plan_online_date",
+            "acture_online_date",
+            "requirement",
+            "code_base"
+        ],
+        "entity": "pm_version",
+        "buttons": [
+            {
+                "title": "新建",
+                "iconCls": "icon-add",
+                "function": "createOne(\"dlg\",\"/pas/Version/create.do\")"
+            },
+            {
+                "title": "修改",
+                "iconCls": "icon-edit",
+                "function": "updateOne(\"dlg\",\"/pas/Version/update.do\")"
+            },
+            {
+                "title": "编译",
+                "iconCls": "icon-remove",
+                "function": "handleOne(\"/pas/Version/compile.do\", \"version_id\")"
+            },
+            {
+                "title": "测试",
+                "iconCls": "icon-remove",
+                "function": "handleOne(\"/pas/Version/test.do\", \"version_id\")"
+            },
+            {
+                "title": "发布",
+                "iconCls": "icon-remove",
+                "function": "handleOne(\"/pas/Version/publish.do\", \"version_id\")"
+            },
+            {
+                "title": "部署",
+                "iconCls": "icon-remove",
+                "function": "handleOne(\"/pas/Version/deploy.do\", \"version_id\")"
+            }
+        ]
+    },
+    "v.pm_version4createform": {
+        "fields": [
+            "version_id",
+            "project_id",
+            "name",
+            "requirement_date",
+            "plan_online_date",
+            "requirement",
+            "code_base"
+        ],
+        "entity": "pm_version"
+    },
+    "v.pm_project": {
+        "fields": [
+            "project_id",
+            "parent_id",
+            "name",
+            "code",
+            "compiler",
+            "remark",
+            "owner",
+            "create_date",
+            "last_version",
+            "code_base"
+        ],
+        "entity": "pm_project",
+        "buttons": [
+            {
+                "title": "新建",
+                "iconCls": "icon-add",
+                "function": "createOne(\"dlg\",\"/pas/Project/create.do\")"
+            },
+            {
+                "title": "修改",
+                "iconCls": "icon-edit",
+                "function": "updateOne(\"dlg\",\"/pas/Project/update.do\")"
+            },
+            {
+                "title": "删除",
+                "iconCls": "icon-remove",
+                "function": "removeOne(\"/pas/Project/remove.do\", \"project_id\")"
+            },
+            {
+                "title": "编译",
+                "iconCls": "icon-remove",
+                "function": "handleOne(\"/pas/Project/compile.do\", \"project_id\")"
+            }
+        ]
+    },
+    "v.pm_project_member": {
+        "fields": [
+            "project_id",
+            "member_id",
+            "role",
+            "create_date"
+        ],
+        "entity": "pm_project_member",
+        "buttons": [
+            {
+                "title": "新建",
+                "iconCls": "icon-add",
+                "function": "createOne(\"dlg\",\"/pas/ProjectMember/create.do\")"
+            },
+            {
+                "title": "修改",
+                "iconCls": "icon-edit",
+                "function": "updateOne(\"dlg\",\"/pas/ProjectMember/update.do\")"
+            },
+            {
+                "title": "删除",
+                "iconCls": "icon-remove",
+                "function": "removeOne(\"/pas/ProjectMember/remove.do\", \"user_id\")"
+            }
+        ]
+    },
+    "v.pm_project_member_user": {
+        "fields": [
+            "project_id",
+            "member_id",
+            "role",
+            "create_date",
+            {
+                "name": "member",
+                "type": "serviceResult",
+                "serviceId": "UserService:findById",
+                "params": {
+                    "user_id": "$member_id"
+                }
+            }
+        ],
+        "entity": "pm_project_member"
+     },
+    "v.pm_project_compile_log": {
+        "fields": [
+            "log_id",
+            "project_id",
+            "project_name",
+            "version_id",
+            "version_name",
+            "compile_num",
+            "md5",
+            "state",
+            "compile_date",
+            "creator",
+            "url",
+            "info",
+            "code_base"
+        ],
+        "entity": "pm_project_compile_log"
+    }
+}
