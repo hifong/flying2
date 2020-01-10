@@ -1,6 +1,7 @@
 # flying2
 flying框架2.0版本
 
+<pre>
 功能特点：
 1、轻量级，相对于SpringCloud而言，引用了少数的几个jar，调试过程5秒钟完成启动
 2、模块化，一个模块一个领域根对象，满足DDD
@@ -29,3 +30,5 @@ flying框架2.0版本
 		return new Data();
     return ModelFactory.createModelInstance(User.class, "password", MD5.encode(password));
 	}
+
+</pre>
