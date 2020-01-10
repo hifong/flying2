@@ -1,3 +1,4 @@
-
 framework/WebRoot/WEB-INF/classes/application.xml
+pas/WebRoot/WEB-INF/classes/*.*
+project/WebRoot/WEB-INF/classes/*.*
 *.class
