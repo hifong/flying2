@@ -1,0 +1,241 @@
+@font-face {
+	font-family: FontAwesome;
+	src: url(../css/fonts/fontawesome-webfont.eot?v=4.2.0);
+	src: url(../css/fonts/fontawesome-webfont.eot?#iefix&v=4.2.0)
+		format('embedded-opentype'),
+		url(../css/fonts/fontawesome-webfont.woff?v=4.2.0) format('woff'),
+		url(../css/fonts/fontawesome-webfont.ttf?v=4.2.0) format('truetype'),
+		url(../css/fonts/fontawesome-webfont.svg?v=4.2.0#fontawesomeregular)
+		format('svg');
+	font-weight: 400;
+	font-style: normal
+}
+
+[class*=am-icon-] {
+	display: inline-block
+}
+
+[class*=am-icon-]:before {
+	display: inline-block;
+	font-family: FontAwesome, sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	vertical-align: baseline;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale
+}
+
+/*ͷ��*/
+.logo {
+    font-family: "微软雅黑",	"Helvetica Neue",​Helvetica,​Arial,​sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: default;
+    position: absolute;
+    top: 10px;
+    left: 14px;
+    line-height: 28px;
+    color: #444;
+}
+.topInfo {
+    position: absolute;
+    right: 8px;
+    top: 18px;
+    font-size: 14px;
+    line-height: 25px;
+}
+.topNav {
+    position: absolute;
+    right: 8px;
+    top: 52px;
+    font-size: 12px;
+    line-height: 25px;
+}
+.top_header{
+	font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial,
+		"Microsoft YaHei", FreeSans, Arimo, "Droid Sans",
+		"wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3",
+		FontAwesome, sans-serif;
+		  margin-left:10px; 
+		  margin-top:25px;	
+}
+
+
+/*���*/
+.collapse {
+    font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif;
+}
+a:focus {
+outline:none;
+-moz-outline:none;
+}
+.left{
+	background: #f5f5f5;
+	margin:0;
+	margin-left:5px; 
+	padding:0;
+}
+.left li{
+	list-style: none;
+	background:#FFF;
+	margin:0;
+	border-right: 1px solid #DDD;
+	border-bottom: 1px solid #DDD;
+}
+.left span{
+	margin-top: 15px;
+	display:inline-block; 
+	height:32
+}
+.left img{
+	height:20
+}
+
+.left>li>a{
+	text-decoration:none;
+	font-size: 1.6rem;
+	font-family: "Segoe UI", "Lucida Grande", Helvetica, Arial,
+		"Microsoft YaHei", FreeSans, Arimo, "Droid Sans",
+		"wenquanyi micro hei", "Hiragino Sans GB", "Hiragino Sans GB W3",
+		FontAwesome, sans-serif;
+		display:block;
+		color:#5c5c5c;
+		padding: 6px 0 6px 0;
+		margin: 0;
+}
+.left li:HOVER{
+	background: #f5f5f5;
+}
+.am-icon-I1:before {
+	content: "\f122";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I2:before {
+	content: "\f007";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I3:before {
+	content: "\f009";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I4:before {
+	content: "\f080";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I5:before {
+	content: "\f196";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I6:before {
+	content: "\f055";
+	margin-right: 10px;
+    margin-left: 15px;
+}
+.am-icon-I7:before {
+	content: "\f085";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I8:before {
+	content: "\f024";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I9:before {
+	content:"\f036";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I10:before {
+	content: "\f0ae";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I11:before {
+	content: "\f0c6";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I12:before {
+	content: "\f044";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I13:before {
+	content: "\f109";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I14:before {
+	content: "\f03e";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.am-icon-I15:before {
+	content: "\f18d";
+	margin-right: 10px;
+	margin-left: 15px;
+}
+.active{
+	background: #ccc;
+}
+
+.nav>li{
+	margin-left:15px;
+}
+
+.home{
+	height: 112px;
+	width: 396px;
+	border: 1px solid #DDD;
+	position: absolute;
+	top:130px;
+	left:384px;
+}
+.home_top{
+	height: 23px;
+	border-bottom: 1px solid #DDD;
+	background: #f5f5f5;
+	
+}
+.home_down{
+	height:86px;
+	line-height:86px;
+	font-weight:900;
+	font-size:40px;
+	text-align: center;
+}
+
+.login{
+	height: 140px;
+	width: 396px;
+	border: 1px solid #DDD;
+	position: absolute;
+	top:130px;
+	left:384px;
+}
+.home_login{
+	height:86px;
+	line-height:40px;
+	font-weight:500;
+	font-size:15px;
+	text-align: left;
+}
+
+.span {
+    font-family: Tahoma, Verdana, 宋体;
+    font-size: -1;
+    line-height: 22px;
+}
+
+.span {
+    font-family: Tahoma, Verdana, 宋体;
+    font-size: -1;
+    line-height: 22px;
+}

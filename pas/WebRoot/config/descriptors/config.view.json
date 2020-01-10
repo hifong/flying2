@@ -1,0 +1,71 @@
+{
+	"config.category.view": 
+	{
+		"title": "配置分类",
+		"entity": "config.category",
+		"fields": 
+		[
+			"category_id",
+			"name",
+			"code",
+			"remarks"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/pas/ConfigCategoryService/create.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/pas/ConfigCategoryService/update.do\")"
+			},
+
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/pas/ConfigCategoryService/remove.do\", \"category_id\")"
+			}
+		]
+	},
+
+	"config.config.view": 
+	{
+		"title": "配置信息",
+		"entity": "config.config",
+		"fields": 
+		[
+			"config_id",
+			"category_code",
+			"name",
+			"config_key",
+			"config_value",
+			"remarks"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/pas/ConfigService/create.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/pas/ConfigService/update.do\")"
+			},
+
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/pas/ConfigService/remove.do\", \"config_id\")"
+			}
+		]
+	}
+}

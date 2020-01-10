@@ -1,0 +1,211 @@
+{
+	"security.user.perms": 
+	{
+		"title": "用户信息",
+		"entity": "security.user",
+		"table-name": "t_user",
+		"primary-key": "user_id",
+		"fields": 
+		[
+			"user_id",
+			"real_name",
+			"username",
+			"password",
+			"org_name",
+            "mail",
+			"role_ids",
+			{
+				"name": "perm_ids",
+				"type": "serviceResult",
+				"serviceId": "PermService:findByUser",
+				"isField": "false",
+				"isColumn": "false",
+				"valueField": "perm_id",
+				"params": 
+				{
+					"user_id": "$user_id"
+				}
+			}
+		]
+	},
+
+	"security.user.view": 
+	{
+		"title": "用户信息",
+		"entity": "security.user",
+		"table-name": "t_user",
+		"primary-key": "user_id",
+		"fields": 
+		[
+			"user_id",
+			"real_name",
+			"username",
+			"password",
+			{
+				"name": "org_name",
+				"title": "组织名称",
+				"from": "security.user"
+			},
+            {
+                "name": "mail",
+                "title": "邮箱",
+                "from": "security.user"
+            },
+
+			"role_ids",
+			"role_names"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/pas/UserService/createWithRoles.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/pas/UserService/updateWithRoles.do\")"
+			},
+
+			{
+				"title": "修改密码",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg2\",\"/pas/UserService/changePassword.do\")"
+			},
+
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/pas/UserService/removeWithRoles.do\", \"user_id\")"
+			}
+		]
+	},
+
+	"security.user.changepassword": 
+	{
+		"title": "修改密码",
+		"entity": "security.user",
+		"fields": 
+		[
+			"user_id",
+			"password",
+			{
+				"name": "confirmpassword",
+				"title": "确认密码",
+				"width": "300px",
+				"type": "password"
+			}
+		]
+	},
+
+	"security.role.view": 
+	{
+		"title": "角色信息",
+		"entity": "security.role",
+		"fields": 
+		[
+			"role_id",
+			"name",
+			"remarks",
+			"perm_ids",
+			"perm_names"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/pas/RoleService/createWithPerms.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/pas/RoleService/updateWithPerms.do\")"
+			},
+
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/pas/RoleService/removeWithPerms.do\", \"role_id\")"
+			}
+		]
+	},
+
+	"security.perm.view": 
+	{
+		"title": "权限信息",
+		"entity": "security.perm",
+		"fields": 
+		[
+			"perm_id",
+			"name",
+			"remarks",
+			"tag"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/pas/PermService/create.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/pas/PermService/update.do\")"
+			},
+
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/pas/PermService/remove.do\", \"perm_id\")"
+			}
+		]
+	},
+
+	"security.menu.view": 
+	{
+		"title": "菜单信息",
+		"entity": "security.menu",
+		"fields": 
+		[
+			"menu_id",
+			"name",
+			"parent_id",
+			"parent_name",
+			"remarks",
+			"sort_id",
+			"perm_id",
+			"perm_name",
+			"url"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/pas/MenuService/create.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/pas/MenuService/update.do\")"
+			},
+
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/pas/MenuService/remove.do\", \"menu_id\")"
+			}
+		]
+	}
+}

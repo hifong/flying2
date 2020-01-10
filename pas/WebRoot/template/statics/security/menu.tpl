@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>企业信息管理平台</title>
+
+    <link rel="stylesheet" type="text/css" href="{$contextPath}/{$Module.id}/easyui/themes/{$page_theme | default: 'default'}/easyui.css">
+    <link rel="stylesheet" type="text/css" href="{$contextPath}/{$Module.id}/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="{$contextPath}/{$Module.id}/style/my.css">
+    
+    <script type="text/javascript" src="{$contextPath}/{$Module.id}/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="{$contextPath}/{$Module.id}/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="{$contextPath}/{$Module.id}/javascript/my.js"></script>
+</head> 
+<body onpageshow="resetPagination('dg')">
+    {jqueryui_grid id="dg" url="/pas/MenuService/findTreeByParent.do" template="jqueryui/treegrid.tpl" view="security.menu.view" params="idField=menu_id;treeField=name" }
+    {jqueryui_dialog id="dlg" view="security.menu.view" }
+</body>
+</html>

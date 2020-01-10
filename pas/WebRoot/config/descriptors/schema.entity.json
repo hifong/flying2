@@ -1,0 +1,78 @@
+{
+	"mysql.table": 
+	{
+		"title": "表",
+		"table-name": "tables",
+		"primary-key": "table_name",
+		"fields": 
+		[
+			{
+				"name": "table_schema",
+				"title": "Schema"
+			},
+
+			{
+				"name": "table_name",
+				"title": "Name"
+			},
+
+			{
+				"name": "table_comment",
+				"title": "Comment"
+			}
+		]
+	},
+
+	"mysql.column": 
+	{
+		"title": "字段",
+		"table-name": "columns",
+		"fields": 
+		[
+			{
+				"name": "table_schema",
+				"title": "Schema"
+			},
+
+			{
+				"name": "table_name",
+				"title": "Table Name"
+			},
+
+			{
+				"name": "column_name",
+				"title": "Name"
+			},
+
+			{
+				"name": "column_comment",
+				"title": "Comment"
+			},
+
+			{
+				"name": "is_nullable",
+				"title": "Nullable"
+			},
+
+			{
+				"name": "data_type",
+				"title": "Data Type"
+			},
+
+			{
+				"name": "character_maximum_length",
+				"title": "Max Length"
+			},
+
+			{
+				"name": "column_key",
+				"title": "KEY"
+			},
+
+			{
+				"name": "extra",
+				"title": "Extra"
+			}
+		]
+	}
+}

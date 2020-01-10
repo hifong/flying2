@@ -1,0 +1,116 @@
+{
+	"sequence": 
+	{
+		"title": "序列",
+		"table-name": "t_sequence",
+		"primary-key": "category",
+		"fields": 
+		[
+			{
+				"name": "category",
+				"title": "Category"
+			},
+
+			{
+				"name": "next_val",
+				"title": "下一值"
+			},
+
+			{
+				"name": "version",
+				"title": "版本"
+			},
+
+			{
+				"name": "step",
+				"title": "步长"
+			},
+
+			{
+				"name": "remarks",
+				"title": "说明",
+				"type": "textarea"
+			}
+		]
+	},
+
+	"config.category": 
+	{
+		"title": "配置分类",
+		"table-name": "t_config_category",
+		"primary-key": "category_id",
+		"fields": 
+		[
+			{
+				"name": "category_id",
+				"title": "ID",
+				"generator": "CONFIG.CATEGORY",
+				"type": "hidden"
+			},
+
+			{
+				"name": "name",
+				"title": "名称"
+			},
+
+			{
+				"name": "code",
+				"title": "代码"
+			},
+
+			{
+				"name": "remarks",
+				"title": "说明",
+				"type": "textarea"
+			}
+		]
+	},
+
+	"config.config": 
+	{
+		"title": "配置信息",
+		"table-name": "t_config",
+		"primary-key": "config_id",
+		"fields": 
+		[
+			{
+				"name": "config_id",
+				"title": "ID",
+				"generator": "CONFIG.CONFIG",
+				"type": "hidden"
+			},
+
+			{
+				"name": "category_code",
+				"title": "分类",
+				"type": "combobox",
+				"isColumn": "false",
+				"valueField": "code",
+				"textField": "name",
+				"url": "/pas/ConfigCategoryService/findAll.do?$value=rows"
+			},
+
+			{
+				"name": "name",
+				"title": "名称"
+			},
+
+			{
+				"name": "config_key",
+				"title": "KEY"
+			},
+
+			{
+				"name": "config_value",
+				"title": "VALUE",
+				"type": "textarea"
+			},
+
+			{
+				"name": "remarks",
+				"title": "说明",
+				"type": "textarea"
+			}
+		]
+	}
+}

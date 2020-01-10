@@ -1,0 +1,279 @@
+{
+	"security.user": {
+		"title": "用户信息",
+		"table-name": "t_user",
+		"primary-key": "user_id",
+		"fields": [
+			{
+				"name": "user_id",
+				"title": "ID",
+				"generator": "SECURITY.USER",
+				"type": "hidden"
+			},
+			{
+				"name": "username",
+				"title": "登录名"
+			},
+			{
+				"name": "password",
+				"title": "密码",
+				"type": "password"
+			},
+			{
+				"name": "org_name",
+				"title": "组织"
+			},
+			{
+				"name": "mail",
+				"title": "邮箱"
+			},
+			{
+				"name": "real_name",
+				"title": "姓名"
+			},
+			{
+				"name": "role_ids",
+				"title": "角色ID",
+				"type": "checkbox",
+				"isColumn": "false",
+				"optionServiceId": "RoleService:findAll",
+				"optionValueField": "role_id",
+				"optionTextField": "name",
+				"optionParams": {
+				},
+				"serviceId": "RoleService:findByUser",
+				"valueField": "role_id",
+				"textField": "name",
+				"params": {
+					"user_id": "$user_id"
+				}
+			},
+			{
+				"name": "role_names",
+				"title": "角色",
+				"type": "serviceResult",
+				"serviceId": "RoleService:findByUser",
+				"isField": "false",
+				"valueField": "name",
+				"params": {
+					"user_id": "$user_id"
+				}
+			},
+			{
+				"name": "create_date",
+				"title": "创建时间"
+			},
+			{
+				"name": "update_date",
+				"title": "修改时间"
+			}
+		]
+	},
+	"security.role": {
+		"title": "角色信息",
+		"table-name": "t_role",
+		"primary-key": "role_id",
+		"fields": [
+			{
+				"name": "role_id",
+				"title": "ID",
+				"generator": "SECURITY.ROLE",
+				"type": "hidden"
+			},
+			{
+				"name": "name",
+				"title": "名称"
+			},
+			{
+				"name": "remarks",
+				"title": "说明",
+				"type": "textarea"
+			},
+			{
+				"name": "perm_ids",
+				"title": "权限",
+				"type": "checkbox",
+				"isColumn": "false",
+				"optionServiceId": "PermService:findAll",
+				"optionValueField": "perm_id",
+				"optionTextField": "name",
+				"optionParams": {
+				},
+				"serviceId": "PermService:findByRole",
+				"valueField": "perm_id",
+				"textField": "name",
+				"params": {
+					"role_id": "$role_id"
+				}
+			},
+			{
+				"name": "perm_names",
+				"title": "权限",
+				"type": "serviceResult",
+				"serviceId": "PermService:findByRole",
+				"isField": "false",
+				"valueField": "name",
+				"params": {
+					"role_id": "$role_id"
+				}
+			}
+		]
+	},
+	"security.perm": {
+		"title": "权限信息",
+		"table-name": "t_perm",
+		"primary-key": "perm_id",
+		"fields": [
+			{
+				"name": "perm_id",
+				"title": "ID",
+				"generator": "SECURITY.PERM",
+				"type": "hidden"
+			},
+			{
+				"name": "name",
+				"title": "名称"
+			},
+			{
+				"name": "remarks",
+				"title": "说明",
+				"type": "textarea"
+			},
+			{
+				"name": "tag",
+				"title": "标签"
+			}
+		]
+	},
+	"security.menu": {
+		"title": "菜单信息",
+		"table-name": "t_menu",
+		"primary-key": "menu_id",
+		"fields": [
+			{
+				"name": "menu_id",
+				"title": "ID",
+				"generator": "SECURITY.MENU",
+				"type": "hidden"
+			},
+			{
+				"name": "name",
+				"title": "名称"
+			},
+			{
+				"name": "parent_id",
+				"title": "上级ID",
+				"type": "combotree",
+				"isColumn": "false",
+				"valueField": "menu_id",
+				"textField": "name",
+				"url": "/pas/MenuService/findTreeByParent.do"
+			},
+			{
+				"name": "parent_name",
+				"title": "上级",
+				"type": "reference",
+				"isField": "false",
+				"refEntity": "security.menu",
+				"refRelField": "menu_id",
+				"relField": "parent_id",
+				"valueField": "name"
+			},
+			{
+				"name": "perm_id",
+				"title": "权限",
+				"type": "combobox",
+				"isColumn": "false",
+				"valueField": "perm_id",
+				"textField": "name",
+				"url": "/pas/PermService/findAll.do?$value=rows"
+			},
+			{
+				"name": "perm_name",
+				"title": "权限",
+				"type": "reference",
+				"isField": "false",
+				"refEntity": "security.perm",
+				"valueField": "name",
+				"refRelField": "perm_id",
+				"relField": "perm_id"
+			},
+			{
+				"name": "sort_id",
+				"title": "排序"
+			},
+			{
+				"name": "remarks",
+				"title": "说明",
+				"type": "textarea"
+			},
+			{
+				"name": "url",
+				"title": "URL"
+			}
+		]
+	},
+	"security.menu2": {
+		"title": "菜单信息",
+		"table-name": "t_menu",
+		"primary-key": "menu_id",
+		"fields": [
+			{
+				"name": "menu_id",
+				"title": "ID",
+				"generator": "SECURITY.MENU",
+				"type": "hidden"
+			},
+			{
+				"name": "name",
+				"title": "名称"
+			},
+			{
+				"name": "parent_id",
+				"title": "上级ID"
+			},
+			{
+				"name": "perm_id",
+				"title": "权限"
+			},
+			{
+				"name": "sort_id",
+				"title": "排序"
+			},
+			{
+				"name": "url",
+				"title": "URL"
+			}
+		]
+	},
+	"security.role_user": {
+		"title": "角色信息",
+		"table-name": "t_role_user",
+		"primary-key": "role_id,user_id",
+		"fields": [
+			{
+				"name": "role_id",
+				"title": "Role"
+			},
+			{
+				"name": "user_id",
+				"title": "User"
+			}
+		]
+	},
+	"security.role_perm": {
+		"title": "角色信息",
+		"table-name": "t_role_perm",
+		"primary-key": "role_id,perm_id",
+		"fields": [
+			{
+				"name": "role_id",
+				"title": "Role"
+			},
+			{
+				"name": "perm_id",
+				"title": "Perm"
+			}
+		]
+	}
+}

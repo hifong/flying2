@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<id>pas</id>
+	<filters>
+		<filter service="pasURIAuthenticationFilter" />
+		<filter service="pasRefererAuthenticationFilter" />
+	</filters>
+	<imports>
+		<import type="module" path="default-module.xml" />
+	</imports>
+	<requests>
+		<request type="do" service="com.flying.pas.request.DoRequestService"/>
+		<request type="ttf " service="com.flying.common.request.ResourceRequestService"/>
+		<request type="woff" service="com.flying.common.request.ResourceRequestService"/>
+		<request type="json " service="com.flying.common.request.ResourceRequestService"/>
+	</requests>
+	<configs>
+		<config name="contentType">text/html; charset=UTF-8</config>
+		<config name="encoding">UTF-8</config>
+		
+		<config name="metadata-files">
+			/config/descriptors/security.entity.json;
+			/config/descriptors/security.view.json;
+			/config/descriptors/config.entity.json;
+			/config/descriptors/config.view.json;
+			/config/descriptors/schema.entity.json
+		</config>
+	</configs>
+</module>
