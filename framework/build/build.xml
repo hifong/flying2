@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="deploy" name="FRAMEWORK">
+	<property environment="env"/>
+	<property name="source" value="${env.COMPONENT_SRC_PATH}" />
+	<property name="release" value="${env.RELEASE_HOME}" />
+	<property name="name" value="FRAMEWORK" />
+	<property name="year" value="2011" />
+	<property name="month" value="7" />
+	<property name="day" value="1" />
+	<property name="date" value="${year}-${month}-${day}" />
+	
+	
+	<!-- source dirs -->
+	<property name="source.web.root" value="${source}/WebRoot" />
+	<property name="source.java.dir" value="${source}/" />
+	<property name="source.web.jars" value="${source.web.root}/WEB-INF/lib" />
+	<property name="source.bin"	     value="${source}/bin" />
+	<property name="source.cfg"	     value="${source}/cfg" />
+	<!-- target dirs -->
+	<property name="target" value="${release}" />
+	<property name="target.web.root"	value="${target}" />
+	<property name="target.classes.dir" value="${target.web.root}/WEB-INF/classes" />
+	<property name="target.dist.dir"	value="${target}/dist" />
+	<property name="target.bin"	        value="${target}/bin" />
+	<property name="target.cfg" 		value="${target.web.root}/WEB-INF/classes" />
+	
+	<path id="web.lib.jars">
+		<fileset dir="${source.web.jars}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<target name="init">
+		<echo>${date}</echo>
+		<mkdir dir="${target}" />
+		<mkdir dir="${target.web.root}" />
+		<mkdir dir="${target.classes.dir}" />
+	</target>
+
+	<target name="clean">
+		<delete dir="${target.web.root}" />
+		<delete dir="${target.dist.dir}" />
+		<delete dir="${target.bin}" />
+	</target>
+
+	<target name="javac" depends="init">
+		<mkdir dir="${target.classes.dir}" />
+		<javac debug="on" deprecation="${javac.deprecation}" destdir="${target.classes.dir}" srcdir="${source.java.dir}" classpathref="web.lib.jars" target="1.6" source="1.6" encoding="UTF-8" >
+			<include name="src/**" />
+			<include name="smarty/**" />
+		    <include name="test/**" />
+		    <include name="iql/**" />
+			<include name="disruptor/**" />
+			<include name="sms/**" />
+            <exclude name="**.svn/**"/>
+            <exclude name="**/.svn*"/>
+            <exclude name="**/.svn**"/>
+            <exclude name="**/.svn/"/>
+            <exclude name=".svn/"/>
+		</javac>
+	</target>
+	<target name="build" depends="javac">
+		<mkdir dir="${target.dist.dir}"/>
+		<jar destfile="${target.dist.dir}/${name}.jar" baseDir="${target.classes.dir}"></jar>
+	</target>
+	<target name="deploy" depends="javac">
+		<copy todir="${target.classes.dir}">
+			<fileset dir="${source.java.dir}/src">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+				<include name="**/*.txt" />
+			</fileset>
+		</copy>
+		<copy todir="${target.classes.dir}">
+			<fileset dir="${source.java.dir}/smarty">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+				<include name="**/*.txt" />
+			</fileset>
+		</copy>
+
+		<mkdir dir="${target.web.root}" />
+		<copy todir="${target.web.root}">
+			<fileset dir="${source.web.root}">
+				<include name="**/*.jsp" />
+				<include name="**/*.xml" />
+				<include name="**/*.css" />
+				<include name="**/*.htm" />
+				<include name="**/*.html" />
+				<include name="**/*.shtml" />
+				<include name="**/*.jar" />
+				<include name="**/*.tld" />
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<!--
+		<mkdir dir="${target.bin}" />
+		<copy todir="${target.bin}">
+			<fileset dir="${source.bin}">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+				<include name="**/*.conf" />
+				<include name="**/*.txt" />
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		-->
+		<mkdir dir="${target.cfg}" />
+		<copy todir="${target.cfg}">
+			<fileset dir="${source.cfg}">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+				<include name="**/*.conf" />
+				<include name="**/*.txt" />
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="javadoc">
+		<mkdir dir="${target.docs.dir}"/>
+		<echo>Java doc output to ${target.docs.dir}</echo>
+		<javadoc packagenames="com.aspire.*" sourcepath="${source.java.dir}" destdir="${target.docs.dir}"></javadoc>
+	</target>
+	<target name="jar" depends="javac">
+		<echo>鐢熸垚${target.dist.dir}/${name}.jar</echo>
+		<mkdir dir="${target.dist.dir}"/>
+		<jar jarfile="${target.dist.dir}/${name}.jar" basedir="${target.classes.dir}"/>
+	</target>
+    
+    <target name="copytomodule">
+        <copy todir="../../common/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+        <copy todir="../../admin/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+        <copy todir="../../async/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+        <copy todir="../../cms/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+        <copy todir="../../example/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+        <copy todir="../../pas/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../pps2/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+        <copy todir="../../product/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+        <copy todir="../../security/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../api/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../auth/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../man/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../aau/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../dev/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../bss/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../uic/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy todir="../../uas/WebRoot/WEB-INF/lib" file="framework.jar"> </copy>
+    	<copy tofile="../../framework/WebRoot/WEB-INF/lib/framework-core.jar" file="framework.jar"> </copy>
+    </target>
+</project>

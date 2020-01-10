@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<id>template</id>
+	<version>1</version>
+	<inner-version>1.0.0.0</inner-version>
+	<name>Module Template</name>
+	<desc>Module Template</desc>
+	<static-path>statics</static-path>
+	<template-type>smarty</template-type>
+	<template-path>template</template-path>
+	<filters>
+		<filter service="com.flying.common.filter.AccessLoggerFilter" />
+	</filters>
+	<imports>
+		<import type="service" path="default-services.xml"/>
+	</imports>
+	<events>
+		<event type="load" 		service="$Notice:installNotice" />
+		<event type="unload" 	service="$Notice:uninstallNotice" />
+	</events> 
+	<beans>
+		<bean name="com.flying.framework.service.SpringBeanFactory">com.flying.common.spring.BeanFactory</bean>
+		<bean name="com.flying.framework.cache.CacheProvider">com.flying.common.cache.MemoryCacheProvider</bean>
+	</beans>
+	<requests>
+		<request type="page" 	service="com.flying.common.request.PageRequestService"/>
+		<request type="action" 	service="com.flying.common.request.JsonRequestService"/>
+		<request type="do"		service="com.flying.common.request.DoRequestService"/>
+		<request type="shtml" 	service="com.flying.common.request.ShtmlRequestService"/>
+		
+		<request type="css" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="gif" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="jpg" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="png" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="jpeg" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="js" 		service="com.flying.common.request.ResourceRequestService"/>
+		<request type="html" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="htm" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="swf" 	service="com.flying.common.request.ResourceRequestService"/>
+		<request type="avi" 	service="com.flying.common.request.ResourceRequestService"/>
+	</requests>
+	<converters>
+		<converter type="javax.servlet.http.HttpServletRequest" service="com.flying.common.data.HttpRequest2DataConverter"/>
+	</converters>
+	<annotations>
+		<annotation type="DEFAULT" service="com.flying.common.annotation.handler.DefaultServiceInvokeHandler"/>
+	</annotations>
+	<configs>
+		<config name="contentType">text/html; charset=UTF-8</config>
+		<config name="encoding">UTF-8</config>
+		<config name="jqueryui.dialog">jqueryui/dialog.tpl</config>
+		<config name="jqueryui.datagrid">jqueryui/datagrid.tpl</config>
+		<config name="metadata-files"></config>
+	</configs>
+</module>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="xsd/application.xsd">
+	<id>app001</id>
+	<event-producer>0</event-producer>
+	<product-mode>false</product-mode>
+	<group-configs>
+		<configs group="remoting">
+			<config name="invoker">hessian</config>
+			<config name="hessian">com.flying.common.remote.hessian.HessianRemoteServiceInvoker</config>
+			<config name="thrift">com.flying.common.remote.thrift.ThriftRemoteServiceInvoker</config>
+		</configs>
+		<configs group="hessian">
+			<config name="connectTimeout">10000</config>
+			<config name="readTimeout">10000</config>
+			<config name="debug">false</config>
+			<config name="url">http://localhost:8080/remoting</config>
+			<config name="hessian2Reply">true</config>
+			<config name="hessian2Request">false</config>
+			<config name="chunkedPost">true</config>
+			<config name="maxConnection">2000</config>
+			<config name="maxPerHostConnection">2000</config>
+		</configs>
+		<configs group="thrift1">
+			<config name="port">10000</config>
+		</configs>
+		<configs group="http">
+			<config name="requestTimeout">10000</config>
+			<config name="soTimeout">10000</config>
+			<config name="timeout">10000</config>
+		</configs>
+		<configs group="mongodb">
+			<config name="db.default">project</config>
+			<config name="db.names">project</config>
+			<config name="db.maxSize">600</config>
+			<config name="db.waitTimeout">127.0.0.1</config>
+			<config name="project.port">20000</config>
+			<config name="project.db">project</config>
+		</configs>
+		<configs group="work">
+			<config name="temp">/temp</config>
+			<config name="modules">/modules</config>
+		</configs>
+	</group-configs>
+	<modules>
+	<!-- 
+		<module id="admin" version="1" locate="local" sort="1">
+			C:\flying\admin\WebRoot
+		</module> -->
+		<module id="cms" version="1" locate="local" sort="2"><!-- $webHome\WEB-INF\modules\admin -->
+			C:\flying\cms\WebRoot
+		</module>
+		<module id="pas" version="1" locate="local" sort="3">
+			C:\flying\pas\WebRoot
+		</module>
+		<module id="assets" version="1" locate="local" sort="5">
+			C:\flying\assets\WebRoot
+		</module>
+		<module id="gallery" version="1" locate="local" sort="6">
+			C:\flying\gallery\WebRoot
+		</module>
+		<module id="project" version="1" locate="local" sort="7">
+			C:\flying\project\WebRoot
+		</module>
+	</modules>
+</application>

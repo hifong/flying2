@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Implementation-Title: flying
+Implementation-Version: 1.6.12
+Implementation-Vendor-Id: com.flying.framework
+Implementation-Vendor: flying.
+Built-By: King
+Main-Class: com.flying.framework.server.JettyServer
+Build-Jdk: 1.8.0_131

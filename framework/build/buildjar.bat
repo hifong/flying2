@@ -1,0 +1,1 @@
+jar cvf framework.jar -C ../WebRoot/WEB-INF/classes/ .

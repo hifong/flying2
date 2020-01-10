@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service id="$API" 												type="class" 	target="com.flying.common.service.ApiService" />
+	<service id="$Notice" 											type="class" 	target="com.flying.common.service.NoticeService" />
+	<service id="multi" 											type="class" 	target="com.flying.common.service.MultiServiceInvoker" />
+	<service id="enums" 											type="class" 	target="com.flying.common.service.EnumService" />
+	
+	<service id="com.flying.common.request.PageRequestService" 		type="class" 	target="com.flying.common.request.PageRequestService" />
+	<service id="com.flying.common.request.ShtmlRequestService" 	type="class" 	target="com.flying.common.request.ShtmlRequestService" />
+	<service id="com.flying.common.request.JsonRequestService" 		type="class" 	target="com.flying.common.request.JsonRequestService" />
+	<service id="com.flying.common.request.ResourceRequestService" 	type="class" 	target="com.flying.common.request.ResourceRequestService" />
+	<service id="com.flying.common.request.DoRequestService" 	    type="class" 	target="com.flying.common.request.DoRequestService" />
+	
+	<service id="com.flying.common.data.HttpRequest2DataConverter" 	type="class" 	target="com.flying.common.data.HttpRequest2DataConverter" />
+	
+	<service id="com.flying.common.annotation.handler.DefaultServiceInvokeHandler" 	type="class" 	target="com.flying.common.annotation.handler.DefaultServiceInvokeHandler" />
+	<service id="com.flying.common.annotation.handler.ServiceProxyHandler" 			type="class" 	target="com.flying.common.annotation.handler.ServiceProxyHandler" />
+	<service id="com.flying.common.annotation.handler.ServiceResultDecorateHandler" type="class" 	target="com.flying.common.annotation.handler.ServiceResultDecorateHandler" />
+	<service id="com.flying.common.annotation.handler.MethodLoggerHandler" 			type="class" 	target="com.flying.common.annotation.handler.MethodLoggerHandler" />
+	<service id="com.flying.common.annotation.handler.MethodAuthenticationHandler" 	type="class" 	target="com.flying.common.annotation.handler.MethodAuthenticationHandler" />
+	
+	<service id="com.flying.common.annotation.handler.CacheableHandler" 	type="class" 	target="com.flying.common.annotation.handler.CacheableHandler" />
+	<service id="com.flying.common.annotation.handler.CacheEvictHandler" 	type="class" 	target="com.flying.common.annotation.handler.CacheEvictHandler" />
+	<service id="com.flying.common.annotation.handler.CacheLevel2Handler" 	type="class" 	target="com.flying.common.annotation.handler.CacheLevel2Handler" />
+	<service id="com.flying.common.annotation.handler.CommonQueryHandler" 	type="class" 	target="com.flying.common.annotation.handler.CommonQueryHandler" />
+	<service id="com.flying.common.annotation.handler.CommonUpdateHandler" 	type="class" 	target="com.flying.common.annotation.handler.CommonUpdateHandler" />
+	
+	<service id="com.flying.common.annotation.handler.DaoCreateHandler" 	type="class" 	target="com.flying.common.annotation.handler.DaoCreateHandler" />
+	<service id="com.flying.common.annotation.handler.DaoUpdateHandler" 	type="class" 	target="com.flying.common.annotation.handler.DaoUpdateHandler" />
+	<service id="com.flying.common.annotation.handler.DaoQueryHandler" 		type="class" 	target="com.flying.common.annotation.handler.DaoQueryHandler" >
+		<configs>
+			<config name="showMetadata">false</config>
+		</configs>
+	</service>
+	<service id="com.flying.common.annotation.handler.DaoRemoveHandler" 	type="class" 	target="com.flying.common.annotation.handler.DaoRemoveHandler" />
+	<service id="com.flying.common.annotation.handler.TransactionHandler" 	type="class" 	target="com.flying.common.annotation.handler.TransactionHandler" />
+	
+	<service id="com.flying.common.filter.AccessLoggerFilter" 		type="class" 	target="com.flying.common.filter.AccessLoggerFilter" />
+	<service id="pasURIAuthenticationFilter" 						type="class" 	target="com.flying.common.filter.URIAuthenticationFilter">
+		<desc>pasURIAuthenticationFilter</desc>
+		<configs>
+			<config name="filterPattern">.+(\\.page|\\.shtml|\\.widget)</config>
+			<config name="ignorePattern">login</config>
+			<config name="login">/pas/login.shtml</config>
+			<config name="authModuleId">pas</config>
+			<config name="authService">AuthService:auth</config>
+		</configs>
+	</service>
+	<service id="pasRefererAuthenticationFilter" 						type="class" 	target="com.flying.common.filter.RefererAuthenticationFilter">
+		<desc>pasRefererAuthenticationFilter</desc>
+		<configs>
+			<config name="filterPattern">.+(\\.do|\\.xdo|\\.action)</config>
+			<config name="ignorePattern">login</config>
+			<config name="login">/pas/login.shtml</config>
+			<config name="authModuleId">pas</config>
+			<config name="authService">AuthService:auth</config>
+		</configs>
+	</service>
+	<service id="ModuleTestEvent" type="class" target="com.flying.framework.service.impl.ModuleEvent">
+		<desc></desc>
+		<configs>
+			<config name="onLoad">Module onLoad success!</config>
+			<config name="onUnload">Module onUnload success!</config>
+		</configs>
+	</service>
+	<service id="LogHandleService" type="class" target="com.flying.framework.XService">
+		<desc></desc>
+		<configs>
+			<config name="games.price">100</config>
+		</configs>
+		<events>
+			<event id="prehandle" sender="receive">
+				<handler serviceId="LogHandleService:prehandle">
+					<condition name="CONTINUE">true</condition>
+				</handler>
+			</event>
+			<event id="send2Marketing" sender="prehandle">
+				<handler serviceId="LogHandleService:send2Marketing">
+					<condition name="status">200</condition>
+					<condition name="CONTINUE">true</condition>
+				</handler>
+			</event>
+			<event id="sendFail" sender="send2Marketing">
+				<handler serviceId="LogHandleService:sendFail">
+					<condition name="CONTINUE">true</condition>
+				</handler>
+			</event>
+		</events>
+	</service>
+</services>
