@@ -11,7 +11,7 @@ flying框架2.0版本
 6、分布式，可以引用远程模块，远程模块本地化访问，让分布式更简单
 
 --插件式模块--
-		<module id="cms" version="1" locate="remote" sort="2"><!-- $webHome\WEB-INF\modules\admin -->
+		&lt;module id="cms" version="1" locate="remote" sort="2"><!-- $webHome\WEB-INF\modules\admin -->
 			http://192.168.1.1:8080/remoting
 		</module>
 		<module id="pas" version="1" locate="local" sort="3">
