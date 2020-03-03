@@ -27,8 +27,7 @@ flying框架2.0版本
 			@Param(value="org_name",required=true, desc="组织机构")String org_name,
 			@Param(value="mail",required=false, desc="邮箱")String mail,
 			@Param(value="real_name",required=true, maxlength=30, desc="用户实名")String real_name) throws Exception {
-		return new Data();
-    return ModelFactory.createModelInstance(User.class, "password", MD5.encode(password));
+		return ModelFactory.createModelInstance(User.class, "password", MD5.encode(password));
 	}
 
 </pre>
