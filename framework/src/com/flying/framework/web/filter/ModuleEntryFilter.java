@@ -81,12 +81,16 @@ public class ModuleEntryFilter  implements Filter {
 			}
 		}
 		//
-		if(module != null && !StringUtils.isEmpty(reqType) && module.canHandleRequest(reqType)) {
-			final String[] pathItems = new String[uris.length - 1];
-			System.arraycopy(uris, 1, pathItems, 0, uris.length - 1);
-			processRequestInChain(module, reqType, req, resp, pathItems);
-		} else {
-			chain.doFilter(sreq, sresp);
+		try {
+			if(module != null && !StringUtils.isEmpty(reqType) && module.canHandleRequest(reqType)) {
+				final String[] pathItems = new String[uris.length - 1];
+				System.arraycopy(uris, 1, pathItems, 0, uris.length - 1);
+				processRequestInChain(module, reqType, req, resp, pathItems);
+			} else {
+				chain.doFilter(sreq, sresp);
+			}
+		} finally {
+			ServiceContext.remove();
 		}
 	}
 	

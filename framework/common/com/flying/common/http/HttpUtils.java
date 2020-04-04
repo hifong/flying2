@@ -9,6 +9,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 import javax.net.ssl.SSLContext;
@@ -23,10 +24,12 @@ import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.config.ConnectionConfig;
 import org.apache.http.config.MessageConstraints;
 import org.apache.http.config.Registry;
@@ -35,7 +38,6 @@ import org.apache.http.config.SocketConfig;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.conn.ssl.SSLContextBuilder;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
@@ -43,8 +45,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.ssl.SSLContextBuilder;
 import org.apache.log4j.Logger;
 
+import com.flying.common.util.JSONUtils;
 import com.flying.common.util.Pair;
 import com.flying.common.util.Utils;
 import com.flying.framework.application.Application;
@@ -53,13 +57,22 @@ import com.flying.framework.data.Data;
 public class HttpUtils {
 	private final static Logger log = Logger.getLogger(HttpUtils.class);
 	private final static String CHARSET = "utf-8";
+	private static HttpClient defaultHttpClient = null;
+	private static ReentrantLock lock = new ReentrantLock(true);
 	
 	public static HttpClient newDefaultClient() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
 		return newClient(Application.getInstance().getConfigs("http"));
 	}
 	
 	public static HttpClient newClient() throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
-		return newClient(null);
+		if(defaultHttpClient != null) return defaultHttpClient;
+		try {
+			lock.tryLock();
+			defaultHttpClient = newClient(null);
+			return defaultHttpClient;
+		} finally {
+			lock.unlock();
+		}
 	}
 	
 	public static HttpClient newClient(final Data config) throws KeyManagementException, NoSuchAlgorithmException, KeyStoreException {
@@ -69,7 +82,6 @@ public class HttpUtils {
 		
 		//SSL
 		SSLContextBuilder sslContextbuilder = new SSLContextBuilder();
-		sslContextbuilder.useTLS();
 		SSLContext sslContext = sslContextbuilder.loadTrustMaterial(null, new TrustStrategy() {
 
 			public boolean isTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -80,7 +92,7 @@ public class HttpUtils {
 
 		Registry<ConnectionSocketFactory> socketFactoryRegistry = RegistryBuilder.<ConnectionSocketFactory> create()
 						.register("http", PlainConnectionSocketFactory.INSTANCE)
-						.register("https", new SSLConnectionSocketFactory(sslContext, SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER))
+						.register("https", new SSLConnectionSocketFactory(sslContext))
 						.build();
 		SocketConfig socketConfig = SocketConfig.custom().setTcpNoDelay(true).build();
 		
@@ -107,9 +119,8 @@ public class HttpUtils {
 		                .setSocketTimeout(soTimeout)
 		                .setConnectTimeout(timeout)
 		                .setConnectionRequestTimeout(requestTimeout)
-						.setCookieSpec(CookieSpecs.BEST_MATCH)
+						.setCookieSpec(CookieSpecs.DEFAULT)
 						.setExpectContinueEnabled(true)
-						.setStaleConnectionCheckEnabled(true)
 						.setTargetPreferredAuthSchemes(Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST))
 						.setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC))
 						.build();
@@ -129,11 +140,13 @@ public class HttpUtils {
 		return execute(httpMethod, null, httpEntity, handler);
 	}
 	
-	public static<T> T execute(HttpEntityEnclosingRequestBase httpMethod, List<Pair<String, String>> headers, HttpEntity httpEntity, ResponseHandler<T> handler) throws Exception {
+	public static<T> T execute(HttpRequestBase httpMethod, List<Pair<String, String>> headers, HttpEntity httpEntity, ResponseHandler<T> handler) throws Exception {
 		log.info("HttpUtils.post url:" + httpMethod.getURI());
 		
 		HttpClient client = newClient();
-        httpMethod.setEntity(httpEntity);
+		if(httpMethod instanceof HttpEntityEnclosingRequestBase) {
+			((HttpEntityEnclosingRequestBase)httpMethod).setEntity(httpEntity);
+		}
         if(headers != null)
         	headers.forEach(x -> httpMethod.addHeader(x.getKey(), x.getValue()));
         CloseableHttpResponse resp = (CloseableHttpResponse)client.execute(httpMethod);
@@ -157,7 +170,15 @@ public class HttpUtils {
 	}
 	
 	public static <T> T post(String url, List<Pair<String, String>> headers, String body, ResponseHandler<T> handler) throws Exception {
-        StringEntity entity = new StringEntity(body);
+		StringEntity entity = null;
+		if(body != null) {
+			if(body instanceof String) {
+				entity =  new StringEntity((String)body);
+			} else {
+				String s = JSONUtils.toJSONString(body);
+				entity =  new StringEntity(s);
+			}
+		}
         return execute(new HttpPost(url), headers, entity, handler);
 	}
 	
@@ -187,6 +208,24 @@ public class HttpUtils {
 	
 	public static <T> T put(String url, byte[] buff, ResponseHandler<T> handler) throws Exception {
         return execute(new HttpPut(url), new ByteArrayEntity(buff), handler);
+	}
+	
+	public static <T> T put(String url, List<Pair<String, String>> headers, Object body, ResponseHandler<T> handler) throws Exception {
+		StringEntity entity = null;
+		if(body != null) {
+			if(body instanceof String) {
+				entity =  new StringEntity((String)body);
+			} else {
+				String s = JSONUtils.toJSONString(body);
+				System.out.println(s);
+				entity =  new StringEntity(s);
+			}
+		}
+        return execute(new HttpPut(url), headers, entity, handler);
+	}
+	
+	public static <T> T delete(String url, List<Pair<String, String>> headers, ResponseHandler<T> handler) throws Exception {
+		return execute(new HttpDelete(url), headers, null, handler);
 	}
 	
 	//

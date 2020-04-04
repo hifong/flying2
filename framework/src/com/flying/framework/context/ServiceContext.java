@@ -17,7 +17,7 @@ import com.flying.framework.security.Principal;
  *
  */
 public class ServiceContext {
-	private final static ThreadLocal<ServiceContext> local = new ThreadLocal<ServiceContext>();
+	private final static ThreadLocal<ServiceContext> LOCAL = new ThreadLocal<ServiceContext>();
 	private final static AtomicLong COUNTER = new AtomicLong(1000000);
 	private final Principal principal;
 	private final LocalModule module;
@@ -32,11 +32,21 @@ public class ServiceContext {
 	private final long startTime;
 	
 	public static ServiceContext getContext() {
-		ServiceContext c = local.get();
+		ServiceContext c = LOCAL.get();
 		if(c == null) {
 			return createLocalInvokingContext(null, null, null, null);
 		}
 		return c;
+	}
+	
+	public static void remove() {
+		ServiceContext c = LOCAL.get();
+		if(c == null) {
+			return;
+		}
+		c.getServices().clear();
+		c.getTempVariables().clear();
+		ServiceContext.LOCAL.remove();
 	}
 	
 	public static ServiceContext createLocalInvokingContext(LocalModule module, Principal principal, HttpServletRequest request, HttpServletResponse response) {
@@ -44,7 +54,7 @@ public class ServiceContext {
 		ctx.invokeType = InvokeType.Local;
 		ctx.request = request;
 		ctx.response = response;
-		local.set(ctx);
+		LOCAL.set(ctx);
 		return ctx;
 	}
 	
@@ -52,7 +62,7 @@ public class ServiceContext {
 		ServiceContext ctx = new ServiceContext(module, principal, uuid);
 		ctx.invokeType = InvokeType.Remote;
 		ctx.remoteModuleId = remoteModuleId;
-		local.set(ctx);
+		LOCAL.set(ctx);
 		return ctx;
 	}
 	

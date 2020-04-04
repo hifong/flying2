@@ -69,6 +69,7 @@ public class AsyncHessianRemoteService extends HessianServlet implements RemoteS
 		} catch (Exception e){
 			remoteData.setException(e);
 		} finally {
+			ServiceContext.remove();
 			logger.info("RemoteInvoker(" + (System.currentTimeMillis() - start) + ")\tModuleId:" + moduleId+";ServiceId:" + serviceId);
 		}
 		return remoteData;
