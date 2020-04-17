@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<id>dba</id>
+	<filters>
+		<filter service="pasURIAuthenticationFilter" />
+		<filter service="pasRefererAuthenticationFilter" />
+	</filters>
+	<imports>
+		<import type="module" path="default-module.xml" />
+	</imports>
+	<configs>
+		<config name="metadata-files">
+			/config/descriptors/view.json
+		</config>
+	</configs>
+</module>

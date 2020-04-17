@@ -1,0 +1,2 @@
+ALTER TABLE {$Column.tableName} ADD ({$Column.fieldName} {$Column.dataType} {if $Column.dataLength}({$Column.dataLength}){/if} );
+COMMENT ON COLUMN {$Column.tableName}.{$Column.fieldName} IS '{$Column.comment}';

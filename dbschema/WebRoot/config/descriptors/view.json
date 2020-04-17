@@ -1,0 +1,184 @@
+{
+	"table.view": 
+	{
+		"title": "数据表",
+		"entity": "db_table",
+		"fields": 
+		[
+			{
+				"name": "table_id",
+				"title": "ID",
+				"type": "hidden"
+			},
+			{
+				"name": "table_name",
+				"title": "表名",
+				"condition": "true"
+			},
+			{
+				"name": "table_title",
+				"title": "中文名",
+				"condition": "true"
+			},
+			{
+				"name": "app",
+				"title": "应用",
+				"condition": "true"
+			},
+			{
+				"name": "module",
+				"title": "模块",
+				"condition": "true"
+			},
+			"partitioned",
+			"partition_field",
+			"comment",
+			"updator",
+			"update_time"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/dba/TableService/create.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg2\",\"/dba/TableService/update.do\")"
+			},
+
+			{
+				"title": "查看字段",
+				"iconCls": "icon-search",
+				"function": "showColumns()"
+			},
+
+			{
+				"title": "查看索引",
+				"iconCls": "icon-search",
+				"function": "showIndexes()"
+			},
+
+			{
+				"title": "查看日志",
+				"iconCls": "icon-search",
+				"function": "showChangeLogs()"
+			},
+			
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/dba/TableService/remove.do\", \"table_id\")"
+			}
+		]
+	},
+	
+	"table.view2": 
+	{
+		"title": "数据表",
+		"entity": "db_table",
+		"fields": 
+		[
+			{
+				"name": "table_id",
+				"title": "ID",
+				"type": "hidden"
+			},
+			"table_title",
+			"app",
+			"module",
+			"comment"
+		]
+	},
+
+	"column.view": 
+	{
+		"title": "字段表",
+		"entity": "db_column",
+		"fields": 
+		[
+			{
+				"name": "column_id",
+				"title": "ID",
+				"type": "hidden"
+			},
+			"table_name",
+			"field_name",
+			"field_title",
+			"data_type",
+			"data_length",
+			"nullable",
+			"sort_order",
+			"comment",
+			"updator",
+			"update_time"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/dba/ColumnService/create.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/dba/ColumnService/update.do\")"
+			},
+			
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/dba/ColumnService/remove.do\", \"column_id\")"
+			}
+		]
+	},
+
+	"index.view": 
+	{
+		"title": "索引表",
+		"entity": "db_index",
+		"fields": 
+		[
+			{
+				"name": "index_id",
+				"title": "ID",
+				"type": "hidden"
+			},
+			"table_name",
+			"index_name",
+			"index_type",
+			"uniqueness",
+			"column_name",
+			"updator",
+			"update_time"
+		],
+
+		"buttons": 
+		[
+			{
+				"title": "新建",
+				"iconCls": "icon-add",
+				"function": "createOne(\"dlg\",\"/dba/IndexService/create.do\")"
+			},
+
+			{
+				"title": "修改",
+				"iconCls": "icon-edit",
+				"function": "updateOne(\"dlg\",\"/dba/IndexService/update.do\")"
+			},
+			
+			{
+				"title": "删除",
+				"iconCls": "icon-remove",
+				"function": "removeOne(\"/dba/IndexService/remove.do\", \"index_id\")"
+			}
+		]
+	}
+}

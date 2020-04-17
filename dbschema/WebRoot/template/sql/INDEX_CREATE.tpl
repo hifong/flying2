@@ -1,0 +1,1 @@
+CREATE INDEX {$Index.indexName} ON {$Index.tableName}({$Index.columnName});
