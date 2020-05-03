@@ -37,7 +37,7 @@ public class PKIUtils {
     
     private LocalModule module;
     
-    private static Map<String,PKIUtils> map = new HashMap();
+    private static Map<String,PKIUtils> map = new HashMap<String,PKIUtils>();
     
     public static PKIUtils getInstance(LocalModule module){
     	PKIUtils u = map.get(module.getId());

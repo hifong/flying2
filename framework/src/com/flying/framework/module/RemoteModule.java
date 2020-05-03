@@ -28,7 +28,7 @@ public class RemoteModule extends Module {
 		return ModuleLocation.REMOTE;
 	}
 
-	public Data invoke(String serviceId, Data request) throws Exception {
+	public Data invoke(String serviceId, Data request) {
 		return RemoteServiceInvokerHelper.invoke(remoteServiceInvoker, id, serviceId, request);
 	}
 

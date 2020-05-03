@@ -24,7 +24,7 @@ public abstract class ServiceHelper {
 	 * @param bean：		请求POJO对象
 	 * @throws Exception
 	 */
-	public static Data invoke(String moduleId, String serviceId, Object bean) throws Exception {
+	public static Data invoke(String moduleId, String serviceId, Object bean) {
 		Data data = null;
 		if(bean instanceof DataSerializable) {
 			data = ((DataSerializable)bean).serialize();
@@ -41,7 +41,7 @@ public abstract class ServiceHelper {
 	 * @param request：		请求数据
 	 * @throws Exception
 	 */
-	public static Data invoke(String moduleId, String serviceId, Data request) throws Exception {
+	public static Data invoke(String moduleId, String serviceId, Data request) {
 		return Application.getInstance().getModules().getModule(moduleId).invoke(serviceId, request);
 	}
 	
@@ -52,7 +52,7 @@ public abstract class ServiceHelper {
 	 * @param bean：		请求POJO对象
 	 * @throws Exception
 	 */
-	public static void invokeAsync(String moduleId, String serviceId, Object bean) throws Exception {
+	public static void invokeAsync(String moduleId, String serviceId, Object bean) {
 		Data data = null;
 		if(bean instanceof DataSerializable) {
 			data = ((DataSerializable)bean).serialize();
@@ -69,7 +69,7 @@ public abstract class ServiceHelper {
 	 * @param request：		请求数据
 	 * @throws Exception
 	 */
-	public static void invokeAsync(String moduleId, String serviceId, Data request) throws Exception {
+	public static void invokeAsync(String moduleId, String serviceId, Data request) {
 		Publisher.publish(moduleId, serviceId, request);
 	}
 	

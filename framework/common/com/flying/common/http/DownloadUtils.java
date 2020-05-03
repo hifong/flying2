@@ -26,7 +26,8 @@ public class DownloadUtils {
 	}
 	public static void main(String[] args) throws Exception {
 		//https://mtl.ttsqgs.com/images/img/11585/2.jpg
-		String url = "https://www.jpxgyw.com/uploadfile/201807/12/F7191831927.jpg";
+		String url = "https://t1.ituba.cc/uploads/2020/0423/20200423050034791.jpg";
+		System.out.println(url);
 		downloadFile(url, "C:\\Tmp\\2.jpg");
 	}
 }

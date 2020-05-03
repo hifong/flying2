@@ -36,5 +36,5 @@ public abstract class Module {
 		return this.id.compareTo(o.id);
 	}
 	
-	public abstract Data invoke(String serviceId, Data request) throws Exception;
+	public abstract Data invoke(String serviceId, Data request);
 }

@@ -9,8 +9,7 @@ import com.flying.framework.security.Principal;
 import com.flying.framework.util.LogUtil;
 
 public abstract class RemoteServiceInvokerHelper {
-	public static Data invoke(RemoteServiceInvoker invoker, String remoteModuleId, String serviceId, Data request)
-					throws Exception {
+	public static Data invoke(RemoteServiceInvoker invoker, String remoteModuleId, String serviceId, Data request) {
 
 		long start = System.currentTimeMillis();
 		LocalModule localModule = ServiceContext.getContext().getModule();
@@ -33,8 +32,7 @@ public abstract class RemoteServiceInvokerHelper {
 		}
 	}
 
-	public static Data invoke(String invoker, String remoteModuleId, String serviceId, Data request)
-					throws Exception {
+	public static Data invoke(String invoker, String remoteModuleId, String serviceId, Data request) {
 		return invoke(RemoteServiceInvokerFactory.getRemoteServiceInvoker(invoker), remoteModuleId, serviceId, request);
 	}
 }

@@ -92,18 +92,18 @@ public class Long64 {
 	}
 	
 	public static void main(String[] args) throws Exception {
-//		long in = Long.MAX_VALUE;
-//		for(in = 99912000; in < 120000000; in ++) {
-//			String tmp = encodeAs64(in);
-//			System.out.println(tmp);
-//			long out = decodeAs64(tmp);
-//			//System.out.println(out);
-//			if(out != in) {
-//				System.err.println("IN\t" + in);
-//				System.err.println("EN\t" + tmp);
-//				System.err.println("OUT\t" + out);
-//			}
-//		}
+		long in = Long.MAX_VALUE;
+		for(in = 99912000; in < 120000000; in ++) {
+			String tmp = encode(in);
+			System.out.println(tmp);
+			long out = decode(tmp);
+			//System.out.println(out);
+			if(out != in) {
+				System.err.println("IN\t" + in);
+				System.err.println("EN\t" + tmp);
+				System.err.println("OUT\t" + out);
+			}
+		}
 		System.out.println(Long64.encode(1000001));
 	}
 }

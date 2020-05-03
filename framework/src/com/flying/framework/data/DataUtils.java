@@ -47,7 +47,7 @@ public class DataUtils {
 	}
 
 	@SuppressWarnings("rawtypes")
-	public static <T> T deserialize(Data data, T input) throws Exception {
+	public static <T> T deserialize(Data data, T input) {
 		if(input == null) return null;
 		Class t = input.getClass();
 		Field[] fields = t.getFields();
@@ -66,20 +66,24 @@ public class DataUtils {
 		return input;
 	}
 	
-	public static Data serialize(Object input) throws Exception {
+	public static Data serialize(Object input)  {
 		if(input == null) return null;
 		Data data = new Data();
 		Field[] fields = input.getClass().getDeclaredFields();
 		for(Field f: fields) {
 			Param p = f.getAnnotation(Param.class);
 			if(p == null) continue;
-			data.put(p.value(), PropertyUtils.getProperty(input, f.getName()));
+			try {
+				data.put(p.value(), PropertyUtils.getProperty(input, f.getName()));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		return data;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Object getValue(Object input) throws Exception {
+	public static Object getValue(Object input) {
 		if(input == null) {
 			return null;
 		} 

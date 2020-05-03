@@ -247,6 +247,10 @@ public class HttpUtils {
         try (CloseableHttpResponse resp = (CloseableHttpResponse)client.execute(httpMethod)){
         	if(handler == null)
         		handler = new DefaultResponseHandler<T>();
+        	if(resp.getStatusLine().getStatusCode() == 301 || resp.getStatusLine().getStatusCode() == 302) {
+        		String location = resp.getFirstHeader("Location").getValue();
+        		return get(location, headers, handler);
+        	}
         	return handler.handle(resp);
         } finally {
         	httpMethod.abort();
