@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module" default="build">
+
+    <property environment="env"/>
+    <property name="source" value="${env.COMPONENT_SRC_PATH}" />
+    <property name="release" value="${env.RELEASE_HOME}" />
+	
+
+	<target name="init">
+		<property name="srcdir" value="${source}" />
+		<property name="webroot" value="${source}/WebRoot" />
+		<property name="destdir" value="${release}/WEB-INF/classes" />
+		<property name="build.encoding" value="UTF-8" />
+		<property name="build.source" value="1.5" />
+		<property name="build.target" value="1.5" />
+		<property name="build.debug" value="on" />
+		<property name="build.deprecation" value="on" />
+		<property name="build.includeantruntime" value="on" />
+		<path id="classpath">
+			<pathelement location="${svn.dest}/release/WEB-INF/classes"/>
+			<fileset dir="${webroot}/WEB-INF/lib">
+				<include name="*.jar"/>
+			</fileset>
+		</path>
+	</target>
+
+	<target name="clean">
+		<echo>clean release directory.</echo>
+		<delete dir="${release}" />
+		<mkdir dir="${release}" />
+		<mkdir dir="${destdir}" />
+	</target>
+	<target name="compile">
+		<javac debug="${build.debug}" deprecation="${build.deprecation}"
+			destdir="${destdir}" srcdir="${srcdir}" classpathref="classpath"
+			includeantruntime="${build.includeantruntime}" target="${build.source}"
+			source="${build.target}" encoding="${build.encoding}">
+			<include name="src/**" />
+			<exclude name="**.svn/**" />
+			<exclude name="**/.svn*" />
+			<exclude name="**/.svn**" />
+			<exclude name="**/.svn/" />
+			<exclude name=".svn/" />
+		</javac>
+	</target>
+	<target name="build" depends="init,clean,compile">
+		<copy todir="${release}/WEB-INF/classes">
+			<fileset dir="${srcdir}/cfg">
+				<include name="**/*" />
+				<exclude name=".svn/" />
+			</fileset>
+		</copy>
+		<copy todir="${release}">
+			<fileset dir="${webroot}">
+				<include name="**/*" />
+				<exclude name="WEB-INF/classes/**" />
+				<exclude name="**.svn/**" />
+				<exclude name="**/.svn*" />
+				<exclude name="**/.svn**" />
+				<exclude name="**/.svn/" />
+				<exclude name=".svn/" />
+			</fileset>
+		</copy>
+		<delete dir="${svn.dest}" />
+	</target>
+</project>

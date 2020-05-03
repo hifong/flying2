@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+	<id>demo</id>
+	<imports>
+		<import type="module" path="default-module.xml" />
+	</imports>
+	<events>
+        <event type="load"      service="com.flying.mq.producer.MQProducer:initProducer" />
+        <event type="unload"      service="com.flying.mq.producer.MQProducer:closeProducer" />
+        
+        <event type="load"      service="com.flying.mq.producer.MQProducerWithIdempotence:initProducer" />
+        
+        <event type="load"      service="com.flying.mq.consumer.MQConsumer:initConsumer" />
+	</events> 
+	<configs>
+		<config name="kafka.bootstrap_servers">192.168.0.108:9091</config>
+		<config name="metadata-files">
+			/config/descriptors/demo.entity.json;
+			/config/descriptors/demo.view.json
+		</config>
+	</configs>
+</module>
